@@ -471,12 +471,12 @@ public class ULogReader extends BinaryLogReader {
             System.exit(0);
         }
         // write all parameters to a gnu Octave data file
-        FileWriter fileWriter = new FileWriter(new File(basePath + File.separator + "parameters.text"));
+        FileWriter fileWriter = new FileWriter(new File(basePath + File.separator + "parameters.octave"));
         Map<String, Object> tmap = new TreeMap<String, Object>(reader.parameters);
         Set pSet = tmap.entrySet();
         for (Object aPSet : pSet) {
             Map.Entry param = (Map.Entry) aPSet;
-            fileWriter.write(String.format("# name: %s\n#type: scalar\n%s\n", param.getKey(), param.getValue()));
+            fileWriter.write(String.format("#name: %s\n#type: scalar\n%s\n", param.getKey(), param.getValue()));
         }
         fileWriter.close();
         long tStart = System.currentTimeMillis();
