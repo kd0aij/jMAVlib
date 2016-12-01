@@ -471,6 +471,7 @@ public class ULogReader extends BinaryLogReader {
             System.exit(0);
         }
         // write all parameters to a gnu Octave data file
+        System.out.printf("creating %s\n", basePath + File.separator + "parameters.octave");
         FileWriter fileWriter = new FileWriter(new File(basePath + File.separator + "parameters.octave"));
         Map<String, Object> tmap = new TreeMap<String, Object>(reader.parameters);
         Set pSet = tmap.entrySet();
@@ -496,7 +497,7 @@ public class ULogReader extends BinaryLogReader {
             try {
                 long t = reader.readUpdate(update);
                 double tsec = (double)t / 1e6;
-                if (tsec > (last_p + 1)) {
+                if (tsec > (last_p + 30)) {
                     last_p = tsec;
                     System.out.printf("%8.0f\n", tsec);
                 }
@@ -559,7 +560,7 @@ public class ULogReader extends BinaryLogReader {
         for (Exception e : reader.getErrors()) {
             e.printStackTrace();
         }
-        System.out.println(tEnd - tStart);
+        System.out.printf("processing time: %5.2f seconds\n", (tEnd - tStart) / 1000.0);
         reader.close();
     }
 
